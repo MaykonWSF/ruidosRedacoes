@@ -1,12 +1,126 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>My Flask App</title>
+    <title>Toolkit para Avaliar Robustez de Sistemas de Avaliação Automática de RedaçõesToolkit para Avaliar Robustez de Sistemas de Avaliação Automática de Redações</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='essay.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
-    <p>Aplicação Flask</p>
+    <h1>Gerador automático de ruídos</h1>
+    <div id="alertBox" class="alert">
+        <span id="alertMessage"></span>
+        <span class="close-btn" id="closeAlert">&times;</span>
+    </div>
+    <div class="container">
+        <div class="textarea-container">
+            <textarea id="inputText" placeholder="Digite sua redação aqui..."></textarea>
+        </div>
+        <div class="slider-container">
+            <div class="slider-item">
+                <label><input type="checkbox" id="chk1"> Ativar Competência 1</label>
+                <!-- <label for="slider1">Competência 1</label> -->
+                <input id="slider1" type="range" min="0" max="100" value="50">
+                <span class="slider-value" id="value1">50%</span>
+            </div>
+            <div class="slider-item">
+                <label><input type="checkbox" id="chk2"> Ativar Competência 2</label>
+                <!-- <label for="slider2">Competência 2</label> -->
+                <input id="slider2" type="range" min="0" max="100" value="50">
+                <span class="slider-value" id="value2">50%</span>
+            </div>
+            <div class="slider-item">
+                <label><input type="checkbox" id="chk3"> Ativar Competência 3</label>
+                <!-- <label for="slider3">Competência 3</label> -->
+                <input id="slider3" type="range" min="0" max="100" value="50">
+                <span class="slider-value" id="value3">50%</span>
+            </div>
+            <div class="slider-item">
+                <label><input type="checkbox" id="chk4"> Ativar Competência 4</label>
+                <!-- <label for="slider4">Competência 4</label> -->
+                <input id="slider4" type="range" min="0" max="100" value="50">
+                <span class="slider-value" id="value4">50%</span>
+            </div>
+            <div class="slider-item">
+                <label><input type="checkbox" id="chk5"> Ativar Competência 5</label>
+                <!-- <label for="slider5">Competência 5</label> -->
+                <input id="slider5" type="range" min="0" max="100" value="50">
+                <span class="slider-value" id="value5">50%</span>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <button id="generateBtn">Gerar</button>
+    </div>
+
+    <!-- Modal -->
+    <div id="responseModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <h2>Resultado</h2>
+            <pre id="modalText"></pre>
+        </div>
+    </div>
+    <script>
+        // Atualiza o valor exibido ao lado do slider
+        const sliders = [1, 2, 3, 4, 5];
+        sliders.forEach(i => {
+            const slider = document.getElementById(`slider${i}`);
+            const output = document.getElementById(`value${i}`);
+            const chk = document.getElementById(`chk${i}`);
+            // Atualiza valor em %
+            slider.addEventListener('input', () => output.textContent = slider.value + '%');
+            // Ativa/desativa slider com checkbox
+            chk.addEventListener('change', () => slider.disabled = !chk.checked);
+            // Estado inicial
+            slider.disabled = !chk.checked;
+        });
+        // Alerta
+        const alertBox = document.getElementById('alertBox');
+        const alertMsg = document.getElementById('alertMessage');
+        document.getElementById('closeAlert').addEventListener('click', () => alertBox.classList.remove('show'));
+        function showAlert(msg) {
+            alertMsg.textContent = msg;
+            alertBox.classList.add('show');
+            setTimeout(() => alertBox.classList.remove('show'), 3000);
+        }
+
+        // Modal handlers
+        const modal = document.getElementById('responseModal');
+        const modalClose = document.getElementById('modalClose');
+        const modalText = document.getElementById('modalText');
+        modalClose.onclick = () => modal.style.display = 'none';
+        window.onclick = event => { if (event.target == modal) modal.style.display = 'none'; };
+
+        // Envia dados para o servidor Flask
+        document.getElementById('generateBtn').addEventListener('click', async () => {
+        const text = document.getElementById('inputText').value.trim();
+        if (!text) { showAlert('O campo de texto está vazio.'); return; }
+        const params = {};
+        sliders.forEach(i => { if (document.getElementById(`chk${i}`).checked) params[`param${i}`] = document.getElementById(`slider${i}`).value; });
+        if (Object.keys(params).length === 0) { showAlert('Nenhuma competência selecionada.'); return; }
+    
+        try {
+            const response = await fetch('/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, params })
+            });
+            if (!response.ok) throw new Error('Erro na requisição');
+                const result = await response.json();
+                console.log('Resposta do servidor:', result);
+                modalText.textContent = JSON.stringify(result, null, 2);
+                modal.style.display = 'block';
+                // aqui você pode exibir o resultado na página
+            } catch (err) {
+                console.error(err);
+                alert('Falha ao enviar dados ao servidor.');
+            }
+        });
+    </script>
 </body>
+
 </html>
