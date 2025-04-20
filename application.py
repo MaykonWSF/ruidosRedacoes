@@ -16,13 +16,15 @@ def generate():
 
     text = data.get('text', '')
     params = data.get('params', {})  # dicionário {'param1': '50', ...}
+    options = data.get('options', [])  # lista de checkboxes selecionados
 
     # Exemplo de processamento: montar um resultado simples
     # Aqui você implementaria seu gerador de ruídos usando `text` e `params`
     resultado = {
         'message': 'Ruído gerado com sucesso!',
         'input_text': text,
-        'used_params': params
+        'used_params': params,
+        'selected_options': options
     }
 
     return jsonify(resultado)
