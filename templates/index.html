@@ -19,37 +19,55 @@
         <div class="textarea-container">
             <textarea id="inputText" placeholder="Digite sua redação aqui..."></textarea>
         </div>
-        <div class="slider-container">
-            <div class="slider-item">
-                <label><input type="checkbox" id="chk1"> Ativar Competência 1</label>
-                <!-- <label for="slider1">Competência 1</label> -->
-                <input id="slider1" type="range" min="0" max="100" value="50">
-                <span class="slider-value" id="value1">50%</span>
-            </div>
-            <div class="slider-item">
-                <label><input type="checkbox" id="chk2"> Ativar Competência 2</label>
-                <!-- <label for="slider2">Competência 2</label> -->
-                <input id="slider2" type="range" min="0" max="100" value="50">
-                <span class="slider-value" id="value2">50%</span>
-            </div>
-            <div class="slider-item">
-                <label><input type="checkbox" id="chk3"> Ativar Competência 3</label>
-                <!-- <label for="slider3">Competência 3</label> -->
-                <input id="slider3" type="range" min="0" max="100" value="50">
-                <span class="slider-value" id="value3">50%</span>
-            </div>
-            <div class="slider-item">
-                <label><input type="checkbox" id="chk4"> Ativar Competência 4</label>
-                <!-- <label for="slider4">Competência 4</label> -->
-                <input id="slider4" type="range" min="0" max="100" value="50">
-                <span class="slider-value" id="value4">50%</span>
-            </div>
-            <div class="slider-item">
-                <label><input type="checkbox" id="chk5"> Ativar Competência 5</label>
-                <!-- <label for="slider5">Competência 5</label> -->
-                <input id="slider5" type="range" min="0" max="100" value="50">
-                <span class="slider-value" id="value5">50%</span>
-            </div>
+        <!-- Painel lateral de controles -->
+        <div class="controls">
+            <!-- Dropdown de sliders -->
+            <details>
+                <summary>Ruídos ENEM</summary>
+                <div class="dropdown-content">
+                    <div class="slider-item">
+                        <label><input type="checkbox" id="chk1"> Ativar Competência 1</label>
+                        <!-- <label for="slider1">Competência 1</label> -->
+                        <input id="slider1" type="range" min="0" max="100" value="50">
+                        <span class="slider-value" id="value1">50%</span>
+                    </div>
+                    <div class="slider-item">
+                        <label><input type="checkbox" id="chk2"> Ativar Competência 2</label>
+                        <!-- <label for="slider2">Competência 2</label> -->
+                        <input id="slider2" type="range" min="0" max="100" value="50">
+                        <span class="slider-value" id="value2">50%</span>
+                    </div>
+                    <div class="slider-item">
+                        <label><input type="checkbox" id="chk3"> Ativar Competência 3</label>
+                        <!-- <label for="slider3">Competência 3</label> -->
+                        <input id="slider3" type="range" min="0" max="100" value="50">
+                        <span class="slider-value" id="value3">50%</span>
+                    </div>
+                    <div class="slider-item">
+                        <label><input type="checkbox" id="chk4"> Ativar Competência 4</label>
+                        <!-- <label for="slider4">Competência 4</label> -->
+                        <input id="slider4" type="range" min="0" max="100" value="50">
+                        <span class="slider-value" id="value4">50%</span>
+                    </div>
+                    <div class="slider-item">
+                        <label><input type="checkbox" id="chk5"> Ativar Competência 5</label>
+                        <!-- <label for="slider5">Competência 5</label> -->
+                        <input id="slider5" type="range" min="0" max="100" value="50">
+                        <span class="slider-value" id="value5">50%</span>
+                    </div>
+                </div>
+            </details>
+            <!-- Dropdown de checkboxes -->
+            <details>
+                <summary>Ruídos gerais</summary>
+                <div class="dropdown-content checkbox-list">
+                    <label><input type="checkbox" id="opt1"> Opção 1</label>
+                    <label><input type="checkbox" id="opt2"> Opção 2</label>
+                    <label><input type="checkbox" id="opt3"> Opção 3</label>
+                    <label><input type="checkbox" id="opt4"> Opção 4</label>
+                    <label><input type="checkbox" id="opt5"> Opção 5</label>
+                </div>
+            </details>
         </div>
     </div>
     <div class="footer">
@@ -63,6 +81,10 @@
             <h2>Resultado</h2>
             <pre id="modalText"></pre>
         </div>
+    </div>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
