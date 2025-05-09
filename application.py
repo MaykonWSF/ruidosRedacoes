@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 
+from competencia1 import Competencia1
+
 
 app = Flask(__name__)
 
@@ -17,6 +19,10 @@ def generate():
     text = data.get('text', '')
     params = data.get('params', {})  # dicionário {'param1': '50', ...}
     options = data.get('options', [])  # lista de checkboxes selecionados
+
+    if 'param1' in params:
+        c1 = Competencia1(text, int(params.get('param1')))
+        c1.adicionar_ruido()
 
     resultado = {
         'message': 'Ruído gerado com sucesso!',
