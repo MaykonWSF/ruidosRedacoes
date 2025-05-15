@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Toolkit para Avaliar Robustez de Sistemas de Avaliação Automática de RedaçõesToolkit para Avaliar Robustez de Sistemas de Avaliação Automática de Redações</title>
+    <title>Toolkit para Avaliar Robustez de Sistemas de Avaliação Automática de Redações</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='essay.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -19,45 +19,37 @@
         <div class="textarea-container">
             <textarea id="inputText" placeholder="Digite sua redação aqui..."></textarea>
         </div>
-        <!-- Painel lateral de controles -->
         <div class="controls">
-            <!-- Dropdown de sliders -->
             <details>
                 <summary>Ruídos ENEM</summary>
                 <div class="dropdown-content">
                     <div class="slider-item">
-                        <label><input type="checkbox" id="chk1"> Ativar Competência 1</label>
-                        <!-- <label for="slider1">Competência 1</label> -->
-                        <input id="slider1" type="range" min="0" max="100" value="50">
-                        <span class="slider-value" id="value1">50%</span>
+                        <label><input type="radio" name="competencia" id="chk1" value="1"> Competência 1</label>
+                        <input id="slider1" type="range" min="0" max="100" value="0" step="10">
+                        <span class="slider-value" id="value1">0%</span>
                     </div>
                     <div class="slider-item">
-                        <label><input type="checkbox" id="chk2"> Ativar Competência 2</label>
-                        <!-- <label for="slider2">Competência 2</label> -->
-                        <input id="slider2" type="range" min="0" max="100" value="50">
-                        <span class="slider-value" id="value2">50%</span>
+                        <label><input type="radio" name="competencia" id="chk2" value="2"> Competência 2</label>
+                        <input id="slider2" type="range" min="0" max="100" value="0" step="10">
+                        <span class="slider-value" id="value2">0%</span>
                     </div>
                     <div class="slider-item">
-                        <label><input type="checkbox" id="chk3"> Ativar Competência 3</label>
-                        <!-- <label for="slider3">Competência 3</label> -->
-                        <input id="slider3" type="range" min="0" max="100" value="50">
-                        <span class="slider-value" id="value3">50%</span>
+                        <label><input type="radio" name="competencia" id="chk3" value="3"> Competência 3</label>
+                        <input id="slider3" type="range" min="0" max="100" value="0" step="10">
+                        <span class="slider-value" id="value3">0%</span>
                     </div>
                     <div class="slider-item">
-                        <label><input type="checkbox" id="chk4"> Ativar Competência 4</label>
-                        <!-- <label for="slider4">Competência 4</label> -->
-                        <input id="slider4" type="range" min="0" max="100" value="50">
-                        <span class="slider-value" id="value4">50%</span>
+                        <label><input type="radio" name="competencia" id="chk4" value="4"> Competência 4</label>
+                        <input id="slider4" type="range" min="0" max="100" value="0" step="10">
+                        <span class="slider-value" id="value4">0%</span>
                     </div>
                     <div class="slider-item">
-                        <label><input type="checkbox" id="chk5"> Ativar Competência 5</label>
-                        <!-- <label for="slider5">Competência 5</label> -->
-                        <input id="slider5" type="range" min="0" max="100" value="50">
-                        <span class="slider-value" id="value5">50%</span>
+                        <label><input type="radio" name="competencia" id="chk5" value="5"> Competência 5</label>
+                        <input id="slider5" type="range" min="0" max="100" value="0" step="10">
+                        <span class="slider-value" id="value5">0%</span>
                     </div>
                 </div>
             </details>
-            <!-- Dropdown de checkboxes -->
             <details>
                 <summary>Ruídos gerais</summary>
                 <div class="dropdown-content checkbox-list">
@@ -74,7 +66,6 @@
         <button id="generateBtn">Gerar</button>
     </div>
 
-    <!-- Modal -->
     <div id="responseModal" class="modal">
         <div class="modal-content">
             <span class="modal-close" id="modalClose">&times;</span>
@@ -82,7 +73,6 @@
             <pre id="modalText"></pre>
         </div>
     </div>
-    <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner"></div>
     </div>
