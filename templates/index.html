@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Toolkit para Avaliar Robustez de Sistemas de Avaliação Automática de Redações</title>
+    <title>Toolkit para Avaliar Robustez de Redações</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='essay.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -20,38 +20,29 @@
             <textarea id="inputText" placeholder="Digite sua redação aqui..."></textarea>
         </div>
         <div class="controls">
-            <details>
-                <summary>Ruídos ENEM</summary>
+            <div class="dropdown-style">
+                <div class="dropdown-title">Ruídos ENEM</div>
                 <div class="dropdown-content">
-                    <div class="slider-item">
-                        <label><input type="radio" name="competencia" id="chk1" value="1"> Competência 1</label>
-                        <input id="slider1" type="range" min="0" max="100" value="0" step="10">
-                        <span class="slider-value" id="value1">0%</span>
-                    </div>
-                    <div class="slider-item">
-                        <label><input type="radio" name="competencia" id="chk2" value="2"> Competência 2</label>
-                        <input id="slider2" type="range" min="0" max="100" value="0" step="10">
-                        <span class="slider-value" id="value2">0%</span>
-                    </div>
-                    <div class="slider-item">
-                        <label><input type="radio" name="competencia" id="chk3" value="3"> Competência 3</label>
-                        <input id="slider3" type="range" min="0" max="100" value="0" step="10">
-                        <span class="slider-value" id="value3">0%</span>
-                    </div>
-                    <div class="slider-item">
-                        <label><input type="radio" name="competencia" id="chk4" value="4"> Competência 4</label>
-                        <input id="slider4" type="range" min="0" max="100" value="0" step="10">
-                        <span class="slider-value" id="value4">0%</span>
-                    </div>
-                    <div class="slider-item">
-                        <label><input type="radio" name="competencia" id="chk5" value="5"> Competência 5</label>
-                        <input id="slider5" type="range" min="0" max="100" value="0" step="10">
-                        <span class="slider-value" id="value5">0%</span>
+                    <label for="selectCompetencia"><strong>Selecione uma competência:</strong></label>
+                    <select id="selectCompetencia">
+                        <option value="" disabled selected>Escolha uma competência</option>
+                        <option value="1">Competência 1</option>
+                        <option value="2">Competência 2</option>
+                        <option value="3">Competência 3</option>
+                        <option value="4">Competência 4</option>
+                        <option value="5">Competência 5</option>
+                        <option value="0">Nenhuma</option>
+                    </select>
+
+                    <div id="desviosContainer" class="desvios-opcoes hidden">
+                        <p><strong>Selecione qual desvio quer adicionar:</strong></p>
+                        <div id="desvioList" class="desvio-choice-group"></div>
                     </div>
                 </div>
-            </details>
-            <details>
-                <summary>Ruídos gerais</summary>
+            </div>
+
+            <div class="dropdown-style">
+                <div class="dropdown-title">Ruídos gerais</div>
                 <div class="dropdown-content checkbox-list">
                     <label><input type="checkbox" id="opt1"> Opção 1</label>
                     <label><input type="checkbox" id="opt2"> Opção 2</label>
@@ -59,11 +50,11 @@
                     <label><input type="checkbox" id="opt4"> Opção 4</label>
                     <label><input type="checkbox" id="opt5"> Opção 5</label>
                 </div>
-            </details>
+            </div>
         </div>
     </div>
     <div class="footer">
-        <button id="generateBtn">Gerar</button>
+        <button id="generateBtn">Gerar redação ruidosa</button>
     </div>
 
     <div id="responseModal" class="modal">

@@ -1,24 +1,76 @@
-const sliders = [1, 2, 3, 4, 5];
+const selectCompetencia = document.getElementById('selectCompetencia');
+const desviosContainer = document.getElementById('desviosContainer');
+const desvioList = document.getElementById('desvioList');
+let selectedDesvio = null;
 
-sliders.forEach(i => {
-    const slider = document.getElementById(`slider${i}`);
-    const output = document.getElementById(`value${i}`);
-    const radio = document.getElementById(`chk${i}`);
+const desviosPorCompetencia = {
+    "1": [
+        "Desvio 1.1",
+        "Desvio 1.2",
+        "Desvio 1.3",
+        "Desvio 1.4",
+        "Desvio 1.5"
+    ],
+    "2": [
+        "Desvio 2.1",
+        "Desvio 2.2",
+        "Desvio 2.3",
+        "Desvio 2.4",
+        "Desvio 2.5"
+    ],
+    "3": [
+        "Desvio 3.1",
+        "Desvio 3.2",
+        "Desvio 3.3",
+        "Desvio 3.4",
+    ],
+    "4": [
+        "Desvio 4.1",
+        "Desvio 4.2",
+        "Desvio 4.3",
+        "Desvio 4.4"
+    ],
+    "5": [
+        "Desvio 5.1",
+        "Desvio 5.2",
+        "Desvio 5.3",
+        "Desvio 5.4"
+    ]
+};
 
-    // Atualiza valor exibido
-    slider.addEventListener('input', () => output.textContent = slider.value + '%');
+selectCompetencia.addEventListener('change', () => {
+    const selected = selectCompetencia.value;
 
-    // Define estado inicial
-    slider.disabled = !radio.checked;
+    // Se o usuário selecionar "Nenhuma"
+    if (selected === "0") {
+        desviosContainer.classList.add('hidden');
+        desvioList.innerHTML = '';
+        selectedDesvio = null;
+        return;
+    }
 
-    // Controla ativação de sliders com radio
-    radio.addEventListener('change', () => {
-        sliders.forEach(j => {
-            const s = document.getElementById(`slider${j}`);
-            s.disabled = !(j === i);
+    const desvios = desviosPorCompetencia[selected];
+    if (!desvios) return;
+
+    desvioList.innerHTML = '';
+    selectedDesvio = null;
+
+    desvios.forEach(d => {
+        const div = document.createElement('div');
+        div.classList.add('desvio-choice');
+        div.textContent = d;
+        div.dataset.desvio = d;
+        div.addEventListener('click', () => {
+            document.querySelectorAll('.desvio-choice').forEach(c => c.classList.remove('selected'));
+            div.classList.add('selected');
+            selectedDesvio = d;
         });
+        desvioList.appendChild(div);
     });
+
+    desviosContainer.classList.remove('hidden');
 });
+
 
 // Alerta
 const alertBox = document.getElementById('alertBox');
@@ -45,15 +97,21 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
         return;
     }
 
-    const selectedRadio = document.querySelector('input[name="competencia"]:checked');
-    if (!selectedRadio) {
-        showAlert('Nenhuma competência selecionada.');
+    const selectedCompetencia = selectCompetencia.value;
+    if (!selectedCompetencia) {
+        showAlert('Selecione uma competência.');
         return;
     }
 
-    const selectedId = selectedRadio.id.replace('chk', '');
-    const sliderValue = document.getElementById(`slider${selectedId}`).value;
-    const params = { [`param${selectedId}`]: sliderValue };
+    if (!selectedDesvio) {
+        showAlert('Selecione um desvio.');
+        return;
+    }
+
+    const params = {
+        competencia: selectedCompetencia,
+        desvio: selectedDesvio
+    };
 
     const options = [];
     [1, 2, 3, 4, 5].forEach(i => {
