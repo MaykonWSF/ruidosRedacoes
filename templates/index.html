@@ -3,22 +3,29 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Toolkit para Avaliar Robustez de Redações</title>
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='essay.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
     <h1>Gerador automático de ruídos</h1>
+
     <div id="alertBox" class="alert">
         <span id="alertMessage"></span>
         <span class="close-btn" id="closeAlert">&times;</span>
     </div>
+
     <div class="container">
         <div class="textarea-container">
             <textarea id="inputText" placeholder="Digite sua redação aqui..."></textarea>
+
+            <div class="footer">
+                <button id="generateBtn">Gerar redação ruidosa</button>
+            </div>
         </div>
+
         <div class="controls">
             <div class="dropdown-style">
                 <div class="dropdown-title">Ruídos ENEM</div>
@@ -44,19 +51,18 @@
             <div class="dropdown-style">
                 <div class="dropdown-title">Ruídos gerais</div>
                 <div class="dropdown-content checkbox-list">
-                    <label><input type="checkbox" id="opt1"> Opção 1</label>
-                    <label><input type="checkbox" id="opt2"> Opção 2</label>
-                    <label><input type="checkbox" id="opt3"> Opção 3</label>
-                    <label><input type="checkbox" id="opt4"> Opção 4</label>
-                    <label><input type="checkbox" id="opt5"> Opção 5</label>
+                    <label><input type="checkbox" id="opt1"> Adicionar texto não relacionado</label>
+                    <label><input type="checkbox" id="opt2"> Adicionar letra de música</label>
+                    <label><input type="checkbox" id="opt3"> Adicionar receita de bolo</label>
+                    <label><input type="checkbox" id="opt4"> Repetir parágrafo</label>
+                    <label><input type="checkbox" id="opt5"> Excluir parágrafo</label>
+                    <label><input type="checkbox" id="opt6"> Embaralhar o texto</label>
                 </div>
             </div>
         </div>
     </div>
-    <div class="footer">
-        <button id="generateBtn">Gerar redação ruidosa</button>
-    </div>
 
+    <!-- Modal de Resultado -->
     <div id="responseModal" class="modal">
         <div class="modal-content">
             <span class="modal-close" id="modalClose">&times;</span>
@@ -64,10 +70,39 @@
             <pre id="modalText"></pre>
         </div>
     </div>
+
+    <!-- Modal de Seleção de Modelo -->
+    <div id="modelSelectionModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modelModalClose">&times;</span>
+            <h3>Qual modelo de linguagem deseja  utilizar?</h3>
+            <div class="model-options">
+                <button class="model-btn" data-model="Deepseek">
+                    <img src="/static/images/Deepseek_logo_icon.png" alt="Deepseek logo">
+                    Deepseek
+                </button>
+                <button class="model-btn" data-model="Gemini">
+                    <img src="/static/images/Gemini_logo_icon.png" alt="Gemini logo">
+                    Gemini
+                </button>
+                <button class="model-btn" data-model="Llama">
+                    <img src="/static/images/Llama_logo_icon.png" alt="Llama logo">
+                    Llama
+                </button>
+                <button class="model-btn" data-model="Qwen">
+                    <img src="/static/images/Qwen_logo_icon.png" alt="Qwen logo">
+                    Qwen
+                </button>
+            </div>
+
+        </div>
+    </div>
+
     <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner"></div>
     </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <script src="/static/script.js"></script>
 </body>
 
 </html>
