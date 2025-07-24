@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 
-from competencia1 import Competencia1
+from ollama_prompt import create_noisy_essay
 
 
 app = Flask(__name__)
@@ -18,17 +18,19 @@ def generate():
 
     text = data.get('text', '')
     params = data.get('params', {})  # dicionário {'param1': '50', ...}
-    options = data.get('options', [])  # lista de checkboxes selecionados
+    # options = data.get('options', [])  # lista de checkboxes selecionados
 
-    if 'param1' in params:
-        c1 = Competencia1(text, int(params.get('param1')))
-        c1.adicionar_ruido()
+    print(f"Texto recebido: {text}")
+    print(f"Parâmetros recebidos: {params}")
+
+    res = create_noisy_essay(text, params.get('desvio', ''), 
+                             params.get('competencia', ''), params.get('modelo', ''))
 
     resultado = {
         'message': 'Ruído gerado com sucesso!',
         'input_text': text,
         'used_params': params,
-        'selected_options': options
+        # 'selected_options': options
     }
 
-    return jsonify(resultado)
+    return jsonify(res)
